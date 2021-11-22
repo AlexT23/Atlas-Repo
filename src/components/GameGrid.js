@@ -1,12 +1,44 @@
 import React, { useState, useEffect } from 'react';
-import {Grid, Button, Typography} from '@material-ui/core';
+import {Grid} from '@material-ui/core';
 import {Square} from './Square';
 import styles from './TicTacToe.css';
 
 export const GameGrid = () => {
 
+    const calculateWinner = (squares) => {
+        const rows = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [2, 4, 6],
+        ];
+        for (let i = 0; i < rows.length; i++) {
+            const [a, b, c] = rows[i];
+            const aValue = squares[a].firstChild.innerText;
+            const bValue = squares[b].firstChild.innerText;
+            const cValue = squares[c].firstChild.innerText;
+            if (aValue && aValue === bValue && aValue === cValue) {
+                return aValue;
+            }
+        }
+        return null;
+    }
+
+    const [nextPlayer, setNextPlayer] = useState('X');
+
     function handleClick (i) {
-        //TODO handle inserting X and O
+        const squares = document.getElementsByClassName("MuiGrid-item");
+        squares[i].firstChild.innerText = nextPlayer;
+        let winner = calculateWinner(squares);
+        if (winner) {
+            alert("Player " + winner + " wins!", winner);
+            return;
+        }
+        nextPlayer === 'X' ? setNextPlayer('O') : setNextPlayer('X');
     };
 
     return (
