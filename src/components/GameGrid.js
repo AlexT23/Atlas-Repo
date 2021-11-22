@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import {Grid, Dialog, DialogTitle, DialogContent} from '@material-ui/core';
+import {Grid, Typography, Dialog, DialogTitle, DialogContent} from '@material-ui/core';
 import {Square} from './Square';
+import {GameLabel} from './GameLabel';
 import styles from './TicTacToe.css';
 
 export const GameGrid = () => {
@@ -49,12 +50,17 @@ export const GameGrid = () => {
     const winnerDialog = () => {
         return (
             <Dialog open={displayWinner}
-                onClose={() => setDisplayWinner(false)} >
+                    onClose={() => setDisplayWinner(false)} 
+                    maxWidth={'lg'}>
                 <DialogTitle>
                     Match Results:
                 </DialogTitle>
                 <DialogContent>
-                    Player {winner} wins!
+                    <Grid container spacing={12}>
+                        <Grid item xs={12} >
+                            Player {winner} wins!
+                        </Grid>
+                    </Grid>
                 </DialogContent>
             </Dialog>
         )
@@ -63,6 +69,7 @@ export const GameGrid = () => {
     return (
         <>
             {winnerDialog()}
+            <GameLabel nextplayer={nextPlayer} />
             <Grid container
                   justifyContent={"center"}
                   className={styles.gridRow}>
