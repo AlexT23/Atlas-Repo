@@ -1,0 +1,21 @@
+.gridRow {
+    display: flex;
+}
+
+.MuiGrid-item {
+    width: 100px;
+    height: 100px;
+    border: 2px solid #575f60;
+    display: flex;
+}
+
+.MuiTypography-h3 {
+    color: #575f60;
+    display: flex;
+    text-decoration: underline #5ab63b;
+    padding-bottom: 100px;
+}
+
+.MuiTypography-h4 {
+    color: #5ab63b;
+}
