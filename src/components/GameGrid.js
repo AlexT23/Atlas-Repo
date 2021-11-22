@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import {Grid} from '@material-ui/core';
+import {Grid, Dialog, DialogTitle, DialogContent} from '@material-ui/core';
 import {Square} from './Square';
 import styles from './TicTacToe.css';
 
 export const GameGrid = () => {
+    
+    const [displayWinner, setDisplayWinner] = useState(false);
+    const [winner, setWinner] = useState("");
 
     const calculateWinner = (squares) => {
         const rows = [
@@ -32,17 +35,34 @@ export const GameGrid = () => {
 
     function handleClick (i) {
         const squares = document.getElementsByClassName("MuiGrid-item");
-        squares[i].firstChild.innerText = nextPlayer;
+        if (squares[i].firstChild.innerText === "")
+            squares[i].firstChild.innerText = nextPlayer;
         let winner = calculateWinner(squares);
         if (winner) {
-            alert("Player " + winner + " wins!", winner);
+            setDisplayWinner(true);
+            setWinner(winner);
             return;
         }
         nextPlayer === 'X' ? setNextPlayer('O') : setNextPlayer('X');
     };
+    
+    const winnerDialog = () => {
+        return (
+            <Dialog open={displayWinner}
+                onClose={() => setDisplayWinner(false)} >
+                <DialogTitle>
+                    Match Results:
+                </DialogTitle>
+                <DialogContent>
+                    Player {winner} wins!
+                </DialogContent>
+            </Dialog>
+        )
+    }
 
     return (
         <>
+            {winnerDialog()}
             <Grid container
                   justifyContent={"center"}
                   className={styles.gridRow}>
